@@ -1,0 +1,180 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-users-table
+      author: your_name
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+                    default: "USER"
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+                    default: "CURRENT_TIMESTAMP"
+
+
+
+  - changeSet:
+      id: 002-create-products-table
+      author: your_name
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(2000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: decimal(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: stock_quantity
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+                    default: "CURRENT_TIMESTAMP"
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+                    default: "CURRENT_TIMESTAMP"
+
+
+
+  - changeSet:
+      id: 003-create-orders-table
+      author: your_name
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_orders_user_id
+                    references: users(id)
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+                    default: "PENDING"
+              - column:
+                  name: total_amount
+                  type: decimal(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+                    default: "CURRENT_TIMESTAMP"
+
+
+
+  - changeSet:
+      id: 004-create-order-items-table
+      author: your_name
+      changes:
+        - createTable:
+            tableName: order_items
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_order_items_order_id
+                    references: orders(id)
+              - column:
+                  name: product_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_order_items_product_id
+                    references: products(id)
+              - column:
+                  name: product_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price_at_order
+                  type: decimal(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: subtotal
+                  type: decimal(10,2)
+                  constraints:
+                    nullable: false
