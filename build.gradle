@@ -61,15 +61,15 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
 
+    // === SPRING SECURITY ===
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
     // === DATABASE ===
     implementation "org.liquibase:liquibase-core"
     runtimeOnly "com.h2database:h2:${versions.h2}"
     testImplementation "com.h2database:h2:${versions.h2}"
     implementation "org.postgresql:postgresql:${versions.postgresql}"
-
-    // === SPRING SECURITY ===
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
     // === JWT ===
     implementation 'com.nimbusds:nimbus-jose-jwt:9.37.3'
